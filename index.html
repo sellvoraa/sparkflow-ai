@@ -36,96 +36,127 @@ p{line-height:1.6}
 .workflow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .workflow h3{font-size:14px;margin:0 0 7px}
 .workflow p{font-size:12px;margin:0;color:var(--muted)}
-.status{font-size:11px;border-radius:20px;padding:6px 8px;background:#18392f;color:var(--green);white-space:nowrap}
 .prompt{width:100%;min-height:100px;background:#0d1018;color:white;border:1px solid var(--line);border-radius:10px;padding:13px;resize:vertical}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .block-list{display:flex;align-items:stretch;gap:8px;overflow-x:auto;padding:10px 0 15px}
 .block{min-width:115px;flex:1;background:#1a1d2c;border:1px solid #393552;border-radius:10px;padding:13px 10px;text-align:center;font-size:12px}
 .block b{display:block;font-size:21px;margin-bottom:8px}
 .arrow{align-self:center;color:var(--accent)}
-.history-item{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}
+.history-item{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer;flex-wrap:wrap}
+.history-item:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.history-detail{white-space:pre-line;color:var(--text)}
 .page{display:none}
 .page.active{display:block}
-.mobile-menu{display:none}
 .notice{padding:12px;border:1px solid #594f8c;background:#211f38;border-radius:10px;color:#d9d4ff;font-size:12px;line-height:1.6;margin-top:15px}
 input[type=text]{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:#0d1018;color:white}
 @media(max-width:760px){
- .sidebar{width:65px;padding:15px 6px}
- .logo{font-size:0;text-align:center;padding:0;margin-bottom:22px}
- .logo:first-letter{font-size:22px}
- .nav{font-size:0;text-align:center;padding:13px 2px}
- .nav::first-letter{font-size:18px}
- .side-label,.side-note{display:none}
- .main{padding:17px 12px}
- .grid{grid-template-columns:1fr;gap:10px}
- h1{font-size:23px}
- .topbar{align-items:flex-start}
- .topbar .btn{font-size:11px;padding:9px}
- .card{padding:15px}
+.sidebar{width:65px;padding:15px 6px}
+.logo{font-size:0;text-align:center;padding:0;margin-bottom:22px}
+.logo:first-letter{font-size:22px}
+.nav{font-size:0;text-align:center;padding:13px 2px}
+.nav::first-letter{font-size:18px}
+.side-label,.side-note{display:none}
+.main{padding:17px 12px}
+.grid{grid-template-columns:1fr;gap:10px}
+h1{font-size:23px}
+.topbar{align-items:flex-start}
+.topbar .btn{font-size:11px;padding:9px}
+.card{padding:15px}
 }
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
-  <div class="logo">✦ Spark<span>Flow</span></div>
-  <button class="nav active" data-page="dashboard">🏠 Dashboard</button>
-  <button class="nav" data-page="builder">🧩 Builder</button>
-  <button class="nav" data-page="history">📋 History</button>
-  <div class="side-label">WORKSPACE</div>
-  <button class="nav" data-page="settings">⚙️ Settings</button>
-  <div class="side-note">Your personal automation workspace.</div>
+<div class="logo">✦ Spark<span>Flow</span></div>
+<button class="nav active" data-page="dashboard">🏠 Dashboard</button>
+<button class="nav" data-page="builder">🧩 Builder</button>
+<button class="nav" data-page="history">📋 History</button>
+<div class="side-label">WORKSPACE</div>
+<button class="nav" data-page="settings">⚙️ Settings</button>
+<div class="side-note">Your personal automation workspace.</div>
 </aside>
 
 <main class="main">
 <header class="topbar">
- <div><div class="eyebrow">YOUR AUTOMATION WORKSPACE</div><h1 id="pageTitle">Dashboard</h1></div>
- <button class="btn primary" id="newWorkflow">＋ New workflow</button>
+<div>
+<div class="eyebrow">YOUR AUTOMATION WORKSPACE</div>
+<h1 id="pageTitle">Dashboard</h1>
+</div>
+<button class="btn primary" id="newWorkflow">＋ New workflow</button>
 </header>
 
 <section class="page active" id="dashboard">
- <p class="muted">Build, organise and manage your automation workflows.</p>
- <div class="grid">
-  <div class="card"><div class="icon">🧩</div><div class="metric" id="workflowCount">1</div><div class="muted">Workflows created</div></div>
-  <div class="card"><div class="icon">▶️</div><div class="metric" id="runCount">0</div><div class="muted">Test runs this session</div></div>
-  <div class="card"><div class="icon">✨</div><div class="metric">AI</div><div class="muted">Workflow assistant</div></div>
- </div>
- <div class="section-head"><h2>Your workflows</h2><button class="btn small" id="openBuilder">Open builder →</button></div>
- <div id="workflowCards"></div>
- <div class="section-head"><h2>Quick start</h2></div>
- <div class="card"><div class="icon">🤖</div><h3>Create with AI instructions</h3><p class="muted">Describe what you want your workflow to do. SparkFlow will prepare a draft plan for you to review.</p>
- <textarea class="prompt" id="quickPrompt" placeholder="Example: Create a YouTube workflow that drafts a script, breaks it into scenes and waits for my approval."></textarea>
- <div class="row"><button class="btn primary" id="generateQuick">Create workflow draft</button></div>
- </div>
+<p class="muted">Build, organise and manage your automation workflows.</p>
+<div class="grid">
+<div class="card"><div class="icon">🧩</div><div class="metric" id="workflowCount">0</div><div class="muted">Workflows created</div></div>
+<div class="card"><div class="icon">▶️</div><div class="metric" id="runCount">0</div><div class="muted">Test runs this session</div></div>
+<div class="card"><div class="icon">✨</div><div class="metric">AI</div><div class="muted">Workflow assistant</div></div>
+</div>
+
+<div class="section-head">
+<h2>Your workflows</h2>
+<button class="btn small" id="openBuilder">Open builder →</button>
+</div>
+<div id="workflowCards"></div>
+
+<div class="section-head"><h2>Quick start</h2></div>
+<div class="card">
+<div class="icon">🤖</div>
+<h3>Create with AI instructions</h3>
+<p class="muted">Describe what you want your workflow to do. SparkFlow will prepare a draft plan for you to review.</p>
+<textarea class="prompt" id="quickPrompt" placeholder="Example: Create a YouTube workflow that drafts a script, breaks it into scenes and waits for my approval."></textarea>
+<div class="row"><button class="btn primary" id="generateQuick">Create workflow draft</button></div>
+</div>
 </section>
 
 <section class="page" id="builder">
- <p class="muted">Create a workflow draft and arrange its steps. This first version is a local interface prototype.</p>
- <div class="card">
- <label for="workflowName">Workflow name</label>
- <input type="text" id="workflowName" value="My YouTube Workflow" style="margin:8px 0 16px">
- <label for="workflowPrompt">Tell SparkFlow what you want to automate</label>
- <textarea class="prompt" id="workflowPrompt" placeholder="Describe your workflow in simple English..."></textarea>
- <div class="row"><button class="btn primary" id="generatePlan">✨ Generate workflow plan</button><button class="btn" id="addBlock">＋ Add step</button><button class="btn" id="saveWorkflow">Save workflow</button></div>
- </div>
- <div class="section-head"><h2>Visual workflow</h2><span class="muted" id="stepCount">3 steps</span></div>
- <div class="card"><div class="block-list" id="blocks"></div>
- <div class="notice">Prototype mode: these blocks are a visual draft only. AI services, video rendering and real uploads are not connected yet.</div>
- <div class="row"><button class="btn primary" id="runWorkflow">▶ Test workflow</button><button class="btn" id="clearBlocks">Reset steps</button></div>
- <p id="runMessage" class="muted" aria-live="polite"></p>
- </div>
- <div class="section-head"><h2>AI plan</h2></div><div class="card" id="planOutput"><p class="muted">Your workflow plan will appear here.</p></div>
+<p class="muted">Create a workflow draft and arrange its steps. This first version is a local interface prototype.</p>
+<div class="card">
+<label for="workflowName">Workflow name</label>
+<input type="text" id="workflowName" value="My YouTube Workflow" style="margin:8px 0 16px">
+<label for="workflowPrompt">Tell SparkFlow what you want to automate</label>
+<textarea class="prompt" id="workflowPrompt" placeholder="Describe your workflow in simple English..."></textarea>
+<div class="row">
+<button class="btn primary" id="generatePlan">✨ Generate workflow plan</button>
+<button class="btn" id="addBlock">＋ Add step</button>
+<button class="btn" id="saveWorkflow">Save workflow</button>
+</div>
+</div>
+
+<div class="section-head"><h2>Visual workflow</h2><span class="muted" id="stepCount">3 steps</span></div>
+<div class="card">
+<div class="block-list" id="blocks"></div>
+<div class="notice">Prototype mode: these blocks are a visual draft only. AI services, video rendering and real uploads are not connected yet.</div>
+<div class="row">
+<button class="btn primary" id="runWorkflow">▶ Test workflow</button>
+<button class="btn" id="clearBlocks">Reset steps</button>
+</div>
+<p id="runMessage" class="muted" aria-live="polite"></p>
+</div>
+
+<div class="section-head"><h2>AI plan</h2></div>
+<div class="card" id="planOutput"><p class="muted">Your workflow plan will appear here.</p></div>
 </section>
 
 <section class="page" id="history">
- <p class="muted">Recent test actions on this device.</p><div class="card" id="historyList"><p class="muted">No runs yet.</p></div>
+<p class="muted">Recent test actions on this device. Tap a record to see details.</p>
+<div class="card" id="historyList"><p class="muted">No runs yet.</p></div>
 </section>
 
 <section class="page" id="settings">
- <p class="muted">Basic workspace preferences.</p>
- <div class="card"><h2>Workspace</h2><p>Product name: SparkFlow AI</p><p>Version: First interface prototype</p><p>Storage: This browser's local storage</p>
- <div class="notice">Do not enter secret API keys here. This static website has no secure backend. We will set up secure integrations in a later stage.</div>
- <div class="row"><button class="btn" id="exportData">Export workflow data</button><button class="btn" id="clearData">Clear saved workflows</button></div></div>
+<p class="muted">Basic workspace preferences.</p>
+<div class="card">
+<h2>Workspace</h2>
+<p>Product name: SparkFlow AI</p>
+<p>Version: First interface prototype</p>
+<p>Storage: This browser's local storage</p>
+<div class="notice">Do not enter secret API keys here. This static website has no secure backend. We will set up secure integrations in a later stage.</div>
+<div class="row">
+<button class="btn" id="exportData">Export workflow data</button>
+<button class="btn" id="clearData">Clear saved workflows</button>
+</div>
+</div>
 </section>
 </main>
 </div>
@@ -136,50 +167,115 @@ const defaultSteps=["Topic","AI Script","Human Review"];
 let steps=[...defaultSteps];
 let runs=0;
 let workflows=[];
-try{workflows=JSON.parse(localStorage.getItem("sf_workflows")||"[]")}catch(e){workflows=[]}
-try{runs=Number(sessionStorage.getItem("sf_runs")||0)}catch(e){runs=0}
-function persist(){try{localStorage.setItem("sf_workflows",JSON.stringify(workflows))}catch(e){}}
+
+try{
+workflows=JSON.parse(localStorage.getItem("sf_workflows")||"[]");
+if(!Array.isArray(workflows))workflows=[];
+}catch(e){workflows=[]}
+
+try{
+runs=Number(sessionStorage.getItem("sf_runs")||0);
+}catch(e){runs=0}
+
+function persist(){
+try{localStorage.setItem("sf_workflows",JSON.stringify(workflows))}catch(e){}
+}
+
 function showPage(name){
- document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===name));
- document.querySelectorAll(".nav[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
- const titles={dashboard:"Dashboard",builder:"Workflow Builder",history:"Execution History",settings:"Settings"};
- $("pageTitle").textContent=titles[name]||"Dashboard";
+document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===name));
+document.querySelectorAll(".nav[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
+const titles={
+dashboard:"Dashboard",
+builder:"Workflow Builder",
+history:"Execution History",
+settings:"Settings"
+};
+$("pageTitle").textContent=titles[name]||"Dashboard";
+if(name==="history")renderHistory();
 }
-document.querySelectorAll(".nav[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
-$("newWorkflow").onclick=()=>{showPage("builder");$("workflowName").focus()};
+
+document.querySelectorAll(".nav[data-page]").forEach(b=>{
+b.addEventListener("click",()=>showPage(b.dataset.page));
+});
+
+$("newWorkflow").onclick=()=>{
+showPage("builder");
+$("workflowName").focus();
+};
+
 $("openBuilder").onclick=()=>showPage("builder");
+
 function renderSteps(){
- $("blocks").innerHTML="";
- steps.forEach((s,i)=>{
-  if(i){const a=document.createElement("div");a.className="arrow";a.textContent="→";$("blocks").appendChild(a)}
-  const d=document.createElement("div");d.className="block";
-  const b=document.createElement("b");b.textContent=["🟣","🤖","🖼️","🎙️","🎬","👤","⬆️"][i%7];
-  const t=document.createElement("div");t.textContent=s;d.append(b,t);
-  d.title="Tap to rename this step";
-  d.onclick=()=>{const n=prompt("Rename this workflow step:",s);if(n&&n.trim()){steps[i]=n.trim();renderSteps()}};
-  $("blocks").appendChild(d);
- });
- $("stepCount").textContent=steps.length+" steps";
+$("blocks").innerHTML="";
+steps.forEach((s,i)=>{
+if(i){
+const a=document.createElement("div");
+a.className="arrow";
+a.textContent="→";
+$("blocks").appendChild(a);
 }
+const d=document.createElement("div");
+d.className="block";
+const b=document.createElement("b");
+b.textContent=["🟣","🤖","🖼️","🎙️","🎬","👤","⬆️"][i%7];
+const t=document.createElement("div");
+t.textContent=s;
+d.append(b,t);
+d.title="Tap to rename this step";
+d.onclick=()=>{
+const n=prompt("Rename this workflow step:",s);
+if(n&&n.trim()){
+steps[i]=n.trim();
+renderSteps();
+}
+};
+$("blocks").appendChild(d);
+});
+$("stepCount").textContent=steps.length+" steps";
+}
+
 function renderWorkflows(){
- $("workflowCount").textContent=workflows.length;
- $("workflowCards").innerHTML="";
- if(!workflows.length){$("workflowCards").innerHTML='<div class="card"><p class="muted">No saved workflows yet. Create your first one below.</p></div>';return}
- workflows.forEach((w,i)=>{
-  const c=document.createElement("div");c.className="card";c.style.marginBottom="10px";
-  const row=document.createElement("div");row.className="workflow";
-  const left=document.createElement("div");const h=document.createElement("h3");h.textContent=w.name;
-  const p=document.createElement("p");p.textContent=(w.steps||[]).length+" steps · Saved on this device";
-  left.append(h,p);const btn=document.createElement("button");btn.className="btn small";btn.textContent="Edit";
-  btn.onclick=()=>{steps=[...(w.steps||defaultSteps)];$("workflowName").value=w.name;$("workflowPrompt").value=w.prompt||"";renderSteps();showPage("builder")};
-  row.append(left,btn);c.appendChild(row);$("workflowCards").appendChild(c);
- });
+$("workflowCount").textContent=workflows.length;
+$("workflowCards").innerHTML="";
+if(!workflows.length){
+$("workflowCards").innerHTML='<div class="card"><p class="muted">No saved workflows yet. Create your first one below.</p></div>';
+return;
 }
+workflows.forEach(w=>{
+const c=document.createElement("div");
+c.className="card";
+c.style.marginBottom="10px";
+const row=document.createElement("div");
+row.className="workflow";
+const left=document.createElement("div");
+const h=document.createElement("h3");
+h.textContent=w.name;
+const p=document.createElement("p");
+p.textContent=(w.steps||[]).length+" steps · Saved on this device";
+left.append(h,p);
+const btn=document.createElement("button");
+btn.className="btn small";
+btn.textContent="Edit";
+btn.onclick=()=>{
+steps=[...(w.steps||defaultSteps)];
+$("workflowName").value=w.name;
+$("workflowPrompt").value=w.prompt||"";
+renderSteps();
+showPage("builder");
+};
+row.append(left,btn);
+c.appendChild(row);
+$("workflowCards").appendChild(c);
+});
+}
+
+/* One single renderHistory function */
 function renderHistory(){
 let list=[];
 try{
 list=JSON.parse(localStorage.getItem("sf_history")||"[]");
-}catch(e){}
+if(!Array.isArray(list))list=[];
+}catch(e){list=[]}
 
 const box=$("historyList");
 box.innerHTML="";
@@ -189,95 +285,203 @@ box.innerHTML='<p class="muted">No runs yet.</p>';
 return;
 }
 
-list.forEach((x,i)=>{
+list.forEach(x=>{
 const d=document.createElement("div");
 d.className="history-item";
-d.style.cursor="pointer";
-d.style.flexWrap="wrap";
 d.setAttribute("role","button");
 d.setAttribute("tabindex","0");
 
 const a=document.createElement("span");
-a.textContent="📋 "+x.message;
+a.textContent="📋 "+(x.message||"History record");
 
 const b=document.createElement("span");
 b.className="muted";
-b.textContent=x.time;
+b.textContent=x.time||"Time unavailable";
 
 const detail=document.createElement("div");
+detail.className="history-detail";
 detail.style.display="none";
 detail.style.width="100%";
 detail.style.padding="12px";
 detail.style.marginTop="8px";
 detail.style.background="var(--panel2)";
 detail.style.borderRadius="8px";
-detail.style.lineHeight="1.7";
 detail.textContent=
-  "Execution details\n"+
-  "Action: "+x.message+"\n"+
-  "Time: "+x.time+"\n"+
-  "Status: Prototype simulation only. No external services were run.";
+"Execution details\n"+
+"Action: "+(x.message||"History record")+"\n"+
+"Time: "+(x.time||"Time unavailable")+"\n"+
+"Status: Prototype simulation only. No external services were run.";
 
 function toggleDetails(){
-  detail.style.display=
-    detail.style.display==="none" ? "block" : "none";
+detail.style.display=detail.style.display==="none"?"block":"none";
 }
 
 d.onclick=toggleDetails;
-d.onkeydown=(event)=>{
-  if(event.key==="Enter"||event.key===" "){
-    event.preventDefault();
-    toggleDetails();
-  }
+d.onkeydown=event=>{
+if(event.key==="Enter"||event.key===" "){
+event.preventDefault();
+toggleDetails();
+}
 };
 
 d.append(a,b,detail);
 box.appendChild(d);
-
 });
- }
-function renderHistory(){
- let list=[];try{list=JSON.parse(localStorage.getItem("sf_history")||"[]")}catch(e){}
- $("historyList").innerHTML="";
- if(!list.length){$("historyList").innerHTML='<p class="muted">No runs yet.</p>';return}
- list.forEach(x=>{const d=document.createElement("div");d.className="history-item";const a=document.createElement("span");a.textContent=x.message;const b=document.createElement("span");b.className="muted";b.textContent=x.time;d.append(a,b);$("historyList").appendChild(d)});
 }
+
+function addHistory(message){
+let list=[];
+try{
+list=JSON.parse(localStorage.getItem("sf_history")||"[]");
+if(!Array.isArray(list))list=[];
+}catch(e){list=[]}
+
+list.unshift({
+message:message,
+time:new Date().toLocaleString()
+});
+
+try{
+localStorage.setItem("sf_history",JSON.stringify(list.slice(0,50)));
+}catch(e){}
+
+renderHistory();
+}
+
 function generatePlan(){
- const p=$("workflowPrompt").value.trim();
- if(!p){alert("Please describe your workflow first.");return}
- const words=p.toLowerCase();
- let plan=["Receive topic or trigger","Prepare AI-generated draft","Review the result"];
- if(words.includes("youtube")||words.includes("video"))plan=["Choose video topic","Draft research and script","Break script into scenes","Prepare visuals and voiceover","Assemble video draft","Human approval before publishing"];
- if(words.includes("email"))plan=["Receive email trigger","Analyse message","Prepare a reply draft","Human review"];
- steps=[...plan];renderSteps();
- $("planOutput").innerHTML="";
- const h=document.createElement("h3");h.textContent="Suggested workflow plan";
- const pnode=document.createElement("p");pnode.className="muted";pnode.textContent="Generated using simple built-in rules, not a live AI model. Review and edit each step before using it.";
- const ol=document.createElement("ol");plan.forEach(x=>{const li=document.createElement("li");li.style.margin="10px 0";li.textContent=x;ol.appendChild(li)});
- $("planOutput").append(h,pnode,ol);
+const promptText=$("workflowPrompt").value.trim();
+if(!promptText){
+alert("Please describe your workflow first.");
+return;
 }
+
+const words=promptText.toLowerCase();
+let plan=[
+"Receive topic or trigger",
+"Prepare AI-generated draft",
+"Review the result"
+];
+
+if(words.includes("youtube")||words.includes("video")){
+plan=[
+"Choose video topic",
+"Draft research and script",
+"Break script into scenes",
+"Prepare visuals and voiceover",
+"Assemble video draft",
+"Human approval before publishing"
+];
+}
+
+if(words.includes("email")){
+plan=[
+"Receive email trigger",
+"Analyse message",
+"Prepare a reply draft",
+"Human review"
+];
+}
+
+steps=[...plan];
+renderSteps();
+
+$("planOutput").innerHTML="";
+const h=document.createElement("h3");
+h.textContent="Suggested workflow plan";
+
+const pnode=document.createElement("p");
+pnode.className="muted";
+pnode.textContent="Generated using simple built-in rules, not a live AI model. Review and edit each step before using it.";
+
+const ol=document.createElement("ol");
+plan.forEach(x=>{
+const li=document.createElement("li");
+li.style.margin="10px 0";
+li.textContent=x;
+ol.appendChild(li);
+});
+
+$("planOutput").append(h,pnode,ol);
+addHistory("Generated workflow plan: "+($("workflowName").value||"Untitled workflow"));
+}
+
 $("generatePlan").onclick=generatePlan;
-$("generateQuick").onclick=()=>{$("workflowPrompt").value=$("quickPrompt").value;showPage("builder");generatePlan()};
-$("addBlock").onclick=()=>{const n=prompt("Name this step:","New step");if(n&&n.trim()){steps.push(n.trim());renderSteps()}};
-$("clearBlocks").onclick=()=>{steps=[...defaultSteps];renderSteps();$("runMessage").textContent="Steps reset."};
+
+$("generateQuick").onclick=()=>{
+$("workflowPrompt").value=$("quickPrompt").value;
+showPage("builder");
+generatePlan();
+};
+
+$("addBlock").onclick=()=>{
+const n=prompt("Name this step:","New step");
+if(n&&n.trim()){
+steps.push(n.trim());
+renderSteps();
+}
+};
+
+$("clearBlocks").onclick=()=>{
+steps=[...defaultSteps];
+renderSteps();
+$("runMessage").textContent="Steps reset.";
+};
+
 $("saveWorkflow").onclick=()=>{
- const name=$("workflowName").value.trim()||"Untitled workflow";
- const w={name,prompt:$("workflowPrompt").value,steps:[...steps],updated:new Date().toISOString()};
- const i=workflows.findIndex(x=>x.name===name);if(i>=0)workflows[i]=w;else workflows.unshift(w);
- persist();renderWorkflows();$("runMessage").textContent="Workflow saved on this device.";addHistory("Saved workflow: "+name);
+const name=$("workflowName").value.trim()||"Untitled workflow";
+const w={
+name:name,
+prompt:$("workflowPrompt").value,
+steps:[...steps],
+updated:new Date().toISOString()
 };
+
+const i=workflows.findIndex(x=>x.name===name);
+if(i>=0)workflows[i]=w;
+else workflows.unshift(w);
+
+persist();
+renderWorkflows();
+$("runMessage").textContent="Workflow saved on this device.";
+addHistory("Saved workflow: "+name);
+};
+
 $("runWorkflow").onclick=()=>{
- runs++;try{sessionStorage.setItem("sf_runs",String(runs))}catch(e){}
- $("runCount").textContent=runs;
- $("runMessage").textContent="Prototype test complete: "+steps.length+" steps displayed. No external services were run.";
- addHistory("Prototype test: "+($("workflowName").value||"Untitled workflow"));
+runs++;
+try{sessionStorage.setItem("sf_runs",String(runs))}catch(e){}
+$("runCount").textContent=runs;
+$("runMessage").textContent="Prototype test complete: "+steps.length+" steps displayed. No external services were run.";
+addHistory("Prototype test: "+($("workflowName").value||"Untitled workflow"));
 };
+
 $("exportData").onclick=()=>{
- const blob=new Blob([JSON.stringify({workflows,history:JSON.parse(localStorage.getItem("sf_history")||"[]")},null,2)],{type:"application/json"});
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="sparkflow-data.json";a.click();URL.revokeObjectURL(a.href);
+let history=[];
+try{history=JSON.parse(localStorage.getItem("sf_history")||"[]")}catch(e){}
+const blob=new Blob([
+JSON.stringify({workflows:workflows,history:history},null,2)
+],{type:"application/json"});
+
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="sparkflow-data.json";
+a.click();
+setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
-$("clearData").onclick=()=>{if(confirm("Delete saved workflows and history from this browser?")){workflows=[];persist();try{localStorage.removeItem("sf_history")}catch(e){}renderWorkflows();renderHistory()}};
-renderSteps();renderWorkflows();renderHistory();$("runCount").textContent=runs;
+
+$("clearData").onclick=()=>{
+if(confirm("Delete saved workflows and history from this browser?")){
+workflows=[];
+persist();
+try{localStorage.removeItem("sf_history")}catch(e){}
+renderWorkflows();
+renderHistory();
+}
+};
+
+renderSteps();
+renderWorkflows();
+renderHistory();
+$("runCount").textContent=runs;
 </script>
 </body>
-</html>
+ </html>
