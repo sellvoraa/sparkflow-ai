@@ -175,13 +175,67 @@ function renderWorkflows(){
   row.append(left,btn);c.appendChild(row);$("workflowCards").appendChild(c);
  });
 }
-function addHistory(message){
- const item={message,time:new Date().toLocaleString()};
- let list=[];try{list=JSON.parse(localStorage.getItem("sf_history")||"[]")}catch(e){}
- list.unshift(item);list=list.slice(0,30);
- try{localStorage.setItem("sf_history",JSON.stringify(list))}catch(e){}
- renderHistory();
+function renderHistory(){
+let list=[];
+try{
+list=JSON.parse(localStorage.getItem("sf_history")||"[]");
+}catch(e){}
+
+const box=$("historyList");
+box.innerHTML="";
+
+if(!list.length){
+box.innerHTML='<p class="muted">No runs yet.</p>';
+return;
 }
+
+list.forEach((x,i)=>{
+const d=document.createElement("div");
+d.className="history-item";
+d.style.cursor="pointer";
+d.style.flexWrap="wrap";
+d.setAttribute("role","button");
+d.setAttribute("tabindex","0");
+
+const a=document.createElement("span");
+a.textContent="📋 "+x.message;
+
+const b=document.createElement("span");
+b.className="muted";
+b.textContent=x.time;
+
+const detail=document.createElement("div");
+detail.style.display="none";
+detail.style.width="100%";
+detail.style.padding="12px";
+detail.style.marginTop="8px";
+detail.style.background="var(--panel2)";
+detail.style.borderRadius="8px";
+detail.style.lineHeight="1.7";
+detail.textContent=
+  "Execution details\n"+
+  "Action: "+x.message+"\n"+
+  "Time: "+x.time+"\n"+
+  "Status: Prototype simulation only. No external services were run.";
+
+function toggleDetails(){
+  detail.style.display=
+    detail.style.display==="none" ? "block" : "none";
+}
+
+d.onclick=toggleDetails;
+d.onkeydown=(event)=>{
+  if(event.key==="Enter"||event.key===" "){
+    event.preventDefault();
+    toggleDetails();
+  }
+};
+
+d.append(a,b,detail);
+box.appendChild(d);
+
+});
+ }
 function renderHistory(){
  let list=[];try{list=JSON.parse(localStorage.getItem("sf_history")||"[]")}catch(e){}
  $("historyList").innerHTML="";
