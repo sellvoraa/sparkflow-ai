@@ -1,41 +1,363 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0d14"><title>SparkFlow AI</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#100d1e">
+<title>SparkFlow AI</title>
 <style>
-:root{--bg:#0b0d14;--panel:#121622;--panel2:#191f2e;--line:#292f42;--text:#f5f6fc;--muted:#9aa3b9;--accent:#9a8cff;--green:#55d6a3;--amber:#f2c879;--red:#ff858f}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -15%,#242047 0%,transparent 42%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.sidebar{width:235px;background:#0d1019;border-right:1px solid var(--line);padding:22px 14px;flex-shrink:0;display:flex;flex-direction:column}.logo{font-size:21px;font-weight:850;margin:3px 0 30px;padding:0 8px}.logo span{color:var(--accent)}.label{font-size:10px;letter-spacing:1.7px;color:#747e96;margin:20px 10px 8px}.nav{display:flex;gap:10px;align-items:center;width:100%;padding:12px;border:1px solid transparent;border-radius:11px;background:transparent;color:var(--muted);text-align:left;margin:3px 0;font-size:13px}.nav:hover,.nav.active{background:#22213b;color:white;border-color:#39345e}.sidebottom{margin-top:auto;padding:10px}.mini{border:1px solid #302c4d;background:#19182d;border-radius:13px;padding:13px;font-size:12px}.mini p{color:var(--muted);font-size:11px;line-height:1.5;margin-bottom:0}.main{flex:1;min-width:0;max-width:1450px;width:100%;margin:auto;padding:30px clamp(14px,3vw,40px)}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:28px}.eyebrow{font-size:10px;letter-spacing:1.8px;color:var(--muted);font-weight:700}h1{font-size:clamp(24px,3vw,31px);letter-spacing:-.8px;margin:7px 0}h2{font-size:17px;margin:0}h3{font-size:14px;margin:0 0 7px}p{line-height:1.6}.muted{color:var(--muted)}.btn{border:1px solid var(--line);border-radius:10px;padding:10px 13px;background:#1a2030;color:white;font-size:12px;font-weight:650}.btn:hover{filter:brightness(1.15)}.btn.primary{background:linear-gradient(135deg,#9a8cff,#6d5ce8);border-color:transparent}.btn.small{padding:7px 10px;fon
-t-size:11px}.btn.danger{color:var(--red)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0}.card{background:linear-gradient(145deg,#141927,#111521);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0;box-shadow:0 8px 28px #0001}.mtop{display:flex;align-items:center;justify-content:space-between}.metric-icon{width:39px;height:39px;border-radius:12px;background:#25233f;display:grid;place-items:center;font-size:18px}.metric{font-size:29px;font-weight:800;letter-spacing:-1px;margin:14px 0 3px}.metric-label{font-size:12px;color:var(--muted)}.foot{font-size:10px;color:var(--green);margin-top:10px}.badge{font-size:10px;padding:5px 8px;border-radius:20px;background:#18372f;color:var(--green)}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:28px 0 13px}.page{display:none}.page.active{display:block}.prompt{width:100%;min-height:100px;background:#0d1019;color:white;border:1px solid var(--line);border-radius:11px;padding:13px;resize:vertical;line-height:1.6}input[type=text]{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1019;color:white}.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.workflow{display:flex;align-items:center;justify-content:space-between;gap:12px}.wfleft{display:flex;align-items:center;gap:12px;min-width:0}.wfico{width:42px;height:42px;border-radius:12px;background:#25233f;display:grid;place-items:center;font-size:19px;flex-shrink:0}.wfmeta{font-size:11px;color:var(--muted);margin-top:5px}.block-list{display:flex;align-items:stretch;gap:8px;overflow-x:auto;padding:10px 0 15px}.block{min-width:120px;flex:1;background:#1a1d2c;border:1px solid #393552;border-radius:12px;padding:13px 10px;text-align:center;font-size:12px}.block b{display:block;font-size:21px;margin-bottom:8px}.arrow{align-self:center;color:var(--accent)}.notice{padding:12px;border:1px solid #49436f;background:#211f38;border-radius:11px;color:#d9d4ff;f
-ont-size:12px;line-height:1.6;margin-top:14px}.history-item{display:flex;justify-content:space-between;gap:10px;padding:14px 0;border-bottom:1px solid var(--line);font-size:12px;cursor:pointer;flex-wrap:wrap}.history-item:last-child{border-bottom:0}.history-item:focus-visible{outline:2px solid var(--accent)}.detail{white-space:pre-line;background:var(--panel2);padding:12px;border-radius:9px;margin-top:8px;width:100%}.empty{padding:18px 0;color:var(--muted);font-size:13px}.setting{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.setting p{font-size:11px;color:var(--muted);margin:4px 0 0}
-@media(max-width:760px){.app{display:block}.sidebar{width:100%;padding:12px;position:sticky;top:0;z-index:4;border-right:0;border-bottom:1px solid var(--line)}.logo{font-size:19px;margin:0 0 10px}.label,.sidebottom{display:none}.navwrap{display:flex;gap:5px;overflow-x:auto}.nav{flex:0 0 auto;width:auto;margin:0;padding:9px;font-size:11px;gap:6px}.main{padding:20px 13px}.topbar{align-items:flex-start}.topbar .btn{font-size:10px;padding:9px}.grid{grid-template-columns:1fr;gap:10px;margin:16px 0}.card{padding:15px}.section-head{margin:22px 0 12px}.badge{display:none}}
-</style></head><body><div class="app">
-<aside class="sidebar"><div class="logo">✦ Spark<span>Flow</span> <small style="font-size:10px;color:#9aa3b9">AI</small></div><div class="navwrap">
-<button class="nav active" data-page="dashboard">▦ Dashboard</button><button class="nav" data-page="builder">◇ Builder</button><button class="nav" data-page="history">◷ History</button><button class="nav" data-page="settings">⚙ Settings</button></div><div class="sidebottom"><div class="mini"><b>✦ Your workspace</b><p>Plan, organise and review your automation ideas in one place.</p></div></div></aside>
-<main class="main"><header class="topbar"><div><div class="eyebrow">YOUR PERSONAL WORKSPACE</div><h1 id="pageTitle">Good to see you.</h1><div class="muted" style="font-size:12px" id="subtitle">Here’s an overview of your workspace.</div></div><button class="btn primary" id="newWorkflow">＋ New workflow</button></header>
-<section class="page active" id="dashboard"><div class="grid">
-<div class="card"><div class="mtop"><span class="metric-icon">◇</span><span class="badge">Workspace</span></div><div class="metric" id="workflowCount">0</div><div class="metric-label">Saved workflows</div><div class="foot">Your workflow drafts</div></div>
-<div class="card"><div class="mtop"><span class="metric-icon">▶</span><span class="badge">Local</span></div><div class="metric" id="runCount">0</div><div class="metric-label">Test runs this session</div><div class="foot">Prototype activity only</div></div>
-<div class="card"><div class="mtop"><span class="metric-icon">✦</span><span class="badge" style="background:#282342;color:#c6bcff">Assistant</span></div><div class="metric" style="font-size:23px">SparkFlow AI</div><div class="metric-label">Workflow planning assistant</div><div class="foot" style="color:var(--amber)">Rule-based prototype</div></div></div>
-<div class="section-head"><h2>Your workflows</h2><button class="btn small" id="openBuilder">Open builder ↗</button></div><div id="workflowCards"></div>
-<div class="section-head"><h2>Start with an idea</h2></div><div class="card"><h3>What would you like to automate?</h3><p class="muted" style="font-size:12px;margin-top:4px">Describe your idea. SparkFlow will create a draft plan for you to review.</p><textarea class="prompt" id="quickPrompt" placeholder="Example: Plan a YouTube video with a script, scenes, voiceover and a human approval step."></textarea><div class="row"><button class="btn primary" id="generateQuick">Create workflow draft →</button></div></div></section>
-<section class="page" id="builder"><div class="card"><h3>Create a workflow draft</h3><p class="muted" style="font-size:12px">Name your workflow and describe what you want to organise.</p><label for="workflowName" style="font-size:12px">Workflow name</label><input type="text" id="workflowName" value="My YouTube Workflow" style="margin:8px 0 16px"><label for="workflowPrompt" style="font-size:12px">What do you want to automate?</label><textarea class="prompt" id="workflowPrompt" placeholder="Describe your workflow in simple English..." style="margin-top:8px"></textarea><div class="row"><button class="btn primary" id="generatePlan">✦ Generate workflow plan</button><button class="btn" id="addBlock">＋ Add step</button><button class="btn" id="saveWorkflow">Save workflow</button></div></div>
-<div class="section-head"><h2>Visual workflow</h2><span class="muted" id="stepCount" style="font-size:11px">3 steps</span></div><div class="card"><div class="block-list" id="blocks"></div><div class="notice">Prototype mode: these blocks are a visual draft only. Live AI services, video rendering and real uploads are not connected.</div><div class="row"><button class="btn primary" id="runWorkflow">▶ Test workflow</button><button class="btn" id="clearBlocks">Reset steps</button></div><p id="runMessage" class="muted" aria-live="polite" style="font-size:12px"></p></div><div class="section-head"><h2>Plan preview</h2></div><div class="card" id="planOutput"><p class="muted" style="font-size:12px">Your draft plan will appear here.</p></div></section>
-<section class="page" id="history"><div class="section-head" style="margin-top:0"><h2>Recent activity</h2><button class="btn small" id="refreshHistory">↻ Refresh</button></div><div class="card"><p class="muted" style="font-size:12px">Tap any record to view its details. History is saved in this browser.</p><div id="historyList"><p class="empty">No activity yet. Save or test a workflow to create a record.</p></div></div></section>
-<section class="page" id="settings"><div class="card"><h3>Workspace settings</h3><p class="muted" style="font-size:12px">Manage your local workflow data.</p><div class="setting"><div><b style="font-size:12px">Product</b><p>SparkFlow AI · First prototype</p></div><span class="badge">Prototype</span></div><div class="setting"><div><b style="font-size:12px">Storage</b><p>Saved in this browser on this device</p></div><span style="font-size:12px;color:var(--green)">Local</span></div><div class="setting"><div><b style="font-size:12px">Export workspace data</b><p>Download workflows and history as JSON.</p></div><button class="btn small" id="exportData">Export</button></div><div class="setting"><div><b style="font-size:12px">Clear saved data</b><p>Delete workflows and history from this browser.</p></div><button class="btn small danger" id="clearData">Clear data</button></div><div class="notice">This static prototype has no secure backend. Do not enter API keys or passwords. Clearing browser data cannot be undone.</div></div></section>
-</main></div>
+:root{--bg:#0d0b16;--panel:#171326;--line:#33294c;--text:#f7f3ff;--muted:#aaa1bd;--purple:#9b72ff;--green:#62d6a5}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 80% -10%,#302052,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.side{padding:22px 14px;border-right:1px solid var(--line);background:#100d1c}
+.brand{font-size:19px;font-weight:800;margin:6px 8px 28px}
+.logo{display:inline-grid;place-items:center;background:linear-gradient(135deg,#b69aff,#7046e8);border-radius:10px;width:34px;height:34px;margin-right:8px}
+.nav{display:grid;gap:7px}
+.nav button{border:0;text-align:left;color:var(--muted);background:transparent;padding:12px;border-radius:11px}
+.nav button.active,.nav button:hover{background:#29203e;color:white}
+.main{padding:26px;max-width:1200px;width:100%;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:24px}
+.eyebrow{color:#bba5ff;text-transform:uppercase;font-size:11px;letter-spacing:1.5px;font-weight:800}
+h1{font-size:27px;margin:4px 0}
+.status{font-size:12px;border:1px solid var(--line);border-radius:30px;padding:7px 10px;color:var(--muted)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px}
+.hero,.card{border:1px solid var(--line);border-radius:17px;background:rgba(23,19,38,.96);padding:20px;margin-bottom:17px}
+.hero{background:linear-gradient(125deg,#211735,#171326);border-color:#443360}
+.hero h2{margin:4px 0;font-size:23px}
+.muted,.small{color:var(--muted)}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+.label{display:block;font-size:13px;margin:14px 0 6px;color:#d8d0e8}
+input,textarea{width:100%;border:1px solid #403455;background:#100d1c;color:var(--text);border-radius:11px;padding:12px}
+textarea{min-height:130px;resize:vertical}
+.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.btn{border:1px solid var(--line);background:#241d36;color:white;padding:10px 14px;border-radius:10px;font-weight:700}
+.primary{background:linear-gradient(135deg,#9b72ff,#7046e8);border:0}
+.btn:disabled{opacity:.6}
+.notice{padding:11px;border-radius:10px;background:#251e37;color:#d4c8f4;font-size:12px;margin-top:12px}
+.warn{background:#39252a;color:#ffd5d5}
+.ok{background:#17362e;color:#c8ffea}
+.output{white-space:pre-wrap;overflow-wrap:anywhere}
+.hidden{display:none!important}
+.item{padding:12px 0;border-bottom:1px solid var(--line)}
+.small{font-size:12px}
+.approval{border:1px solid #6b5531;background:#302719;border-radius:11px;padding:12px;font-size:13px}
+.foot{text-align:center;color:#777086;font-size:11px;padding:10px}
+@media(max-width:720px){
+.app{grid-template-columns:1fr}
+.side{border:0;border-bottom:1px solid var(--line);padding:10px}
+.brand{margin:2px 4px 10px}
+.nav{grid-template-columns:repeat(4,1fr);gap:3px}
+.nav button{text-align:center;padding:9px 2px;font-size:12px}
+.main{padding:15px}
+.grid{grid-template-columns:1fr}
+h1{font-size:23px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="brand"><span class="logo">✦</span>SparkFlow AI</div>
+<nav class="nav">
+<button class="active" data-page="dashboard">◈ Dashboard</button>
+<button data-page="builder">⌘ Builder</button>
+<button data-page="history">◷ History</button>
+<button data-page="settings">⚙ Settings</button>
+</nav>
+</aside>
+
+<main class="main">
+<header class="top">
+<div>
+<div class="eyebrow">Personal automation workspace</div>
+<h1 id="pageTitle">Dashboard</h1>
+</div>
+<div class="status"><span class="dot"></span><span id="connectionStatus">Not tested</span></div>
+</header>
+
+<section id="dashboardPage">
+<div class="hero">
+<div class="eyebrow">Build something useful</div>
+<h2>Turn your ideas into workflows.</h2>
+<p class="muted">Describe the task in simple English. SparkFlow AI prepares a plan for you to review.</p>
+<button class="btn primary" id="start">＋ Create workflow</button>
+</div>
+<div class="grid">
+<div class="card">
+<h3>Quick start</h3>
+<p class="muted">Choose a starting point.</p>
+<button class="btn" data-quick="Create a YouTube workflow for an English psychology video, 8–12 minutes long, with AI voice and human approval before publishing.">YouTube workflow</button>
+<br><br>
+<button class="btn" data-quick="Create a workflow that drafts a response and waits for my approval before sending.">Draft with approval</button>
+</div>
+<div class="card">
+<h3>Current capabilities</h3>
+<ul>
+<li>AI workflow planning</li>
+<li>Save plans on this device</li>
+<li>Human approval stays required</li>
+<li>Video rendering and upload are not connected</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="builderPage" class="hidden">
+<div class="grid">
+<div class="card">
+<h3>Workflow builder</h3>
+<p class="muted">Describe your goal and any limits.</p>
+<label class="label" for="name">Workflow name</label>
+<input id="name" placeholder="Daily psychology video">
+<label class="label" for="prompt">Describe your workflow</label>
+<textarea id="prompt" placeholder="Plan a 10-minute English psychology video, write a researched script, split it into scenes, suggest visuals and AI voiceover, then stop for my approval."></textarea>
+<div class="row">
+<button class="btn primary" id="generate">✦ Generate with AI</button>
+<button class="btn" id="save">Save workflow</button>
+<button class="btn" id="clear">Clear</button>
+</div>
+<div id="message" class="notice hidden"></div>
+</div>
+
+<div class="card">
+<h3>Safety rule</h3>
+<div class="approval">✓ <b>Human approval required before publishing.</b><br>This version plans workflows; it does not render or upload videos.</div>
+<p class="small">Review facts, copyright, visuals, and voice permissions before use.</p>
+</div>
+</div>
+
+<div class="card">
+<h3>AI-generated plan</h3>
+<div id="output" class="output muted">Your generated plan will appear here.</div>
+</div>
+</section>
+
+<section id="historyPage" class="hidden">
+<div class="card">
+<h3>Saved plans</h3>
+<p class="muted">Saved locally in this browser.</p>
+<div id="history" class="muted">Nothing saved yet.</div>
+<button class="btn" id="clearHistory">Clear history</button>
+</div>
+</section>
+
+<section id="settingsPage" class="hidden">
+<div class="card">
+<h3>Backend settings</h3>
+<p class="muted">Do not put API keys in this website.</p>
+<label class="label" for="backend">Cloudflare Worker URL</label>
+<input id="backend" value="https://noisy-flower-7a0b.binunajad.workers.dev">
+<div class="row">
+<button class="btn primary" id="saveUrl">Save URL</button>
+<button class="btn" id="test">Test connection</button>
+</div>
+<div id="settingsMsg" class="notice hidden"></div>
+</div>
+</section>
+
+<div class="foot">SparkFlow AI · AI-assisted planning · You remain in control</div>
+</main>
+</div>
+
 <script>
-const $=id=>document.getElementById(id),defaultSteps=["Topic","AI Script","Human Review"];let steps=[...defaultSteps],runs=0,workflows=[];
-try{workflows=JSON.parse(localStorage.getItem("sf_workflows")||"[]");if(!Array.isArray(workflows))workflows=[]}catch(e){workflows=[]}
-try{runs=Number(sessionStorage.getItem("sf_runs")||0)}catch(e){runs=0}
-function persist(){try{localStorage.setItem("sf_workflows",JSON.stringify(workflows))}catch(e){alert("Could not save data in this browser.")}}
-function showPage(name){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===name));document.querySelectorAll(".nav[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));const t={dashboard:["Good to see you.","Here’s an overview of your workspace."],builder:["Workflow builder","Turn an idea into an editable draft plan."],history:["Execution history","Review your recent prototype activity."],settings:["Settings","Manage your workspace and saved data."]};$("pageTitle").textContent=t[name][0];$("subtitle").textContent=t[name][1];if(name==="history")renderHistory()}
-document.querySelectorAll(".nav[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));$("newWorkflow").onclick=()=>{showPage("builder");$("workflowName").focus()};$("openBuilder").onclick=()=>showPage("builder");
-function renderSteps(){$("blocks").innerHTML="";steps.forEach((s,i)=>{if(i){let a=document.createElement("div");a.className="arrow";a.textContent="→";$("blocks").appendChild(a)}let d=document.createElement("div");d.className="block";let b=document.createElement("b");b.textContent=["✦","🤖","▧","◖","▶","✓","↑"][i%7];let t=document.createElement("div");t.textContent=s;d.append(b,t);d.title="Tap to rename this step";d.onclick=()=>{let n=prompt("Rename this workflow step:",s);if(n&&n.trim()){steps[i]=n.trim();renderSteps()}};$("blocks").appendChild(d)});$("stepCount").textContent=steps.length+" steps"}
-function renderWorkflows(){$("workflowCount").textContent=workflows.length;$("workflowCards").innerHTML="";if(!workflows.length){$("workflowCards").innerHTML='<div class="card"><p class="empty">No saved workflows yet. Create your first draft above.</p></div>';return}workflows.forEach((w,i)=>{let c=document.createElement("div");c.className="card";c.style.marginBottom="10px";let row=document.createElement("div");row.className="workflow";let left=document.createElement("div");left.style.display="flex";left.style.alignItems="center";left.style.gap="12px";let icon=document.createElement("div");icon.className="wfico";icon.textContent="◇";let info=document.createElement("div");let h=document.createElement("h3");h.textContent=w.name||"Untitled workflow";let p=document.createElement("div");p.className="wfmeta";p.textContent=(w.steps||[]).length+" steps · Saved on this device";info.append(h,p);left.append(icon,info);let actions=document.createElement("div");actions.className="row";actions.style.marginTop="0";let edit=document.createElement("button");edit.className="btn small";edit.textContent="Edit";edit.onclick=()=>{steps=[...(w.steps||defaultSteps)];$("workflowName").value=w.name||"";$("workflowPrompt").value=w.prompt||"";renderSteps();showPage("builder")};let del=document.createElement("button");del.className="btn small danger";del.textContent="Delete";del.onclick=()=>{if(confirm("Delete this saved workflow?")){workflows.splice(i,1);persist();renderWorkflows()}};actions.append(edit,del);row.append(left,actions);c.appendChild(row);$("workflowCards").appendChild(c)})}
-function renderHistory(){let list=[];try{list=JSON.parse(localStorage.getItem("sf_history")||"[]");if(!Array.isArray(list))list=[]}catch(e){list=[]}let box=$("historyList");box.innerHTML="";if(!list.length){box.innerHTML='<p class="empty">No activity yet. Save or test a workflow to create a record.</p>';return}list.forEach(x=>{let d=document.createElement("div");d.className="history-item";d.tabIndex=0;d.setAttribute("role","button");let a=document.createElement("span");a.textContent="◷  "+(x.message||"History record");let b=document.createElement("span");b.className="muted";b.textContent=x.time||"Time unavailable";let detail=document.createElement("div");detail.className="detail";detail.style.display="none";detail.textContent="Execution details\nAction: "+(x.message||"History record")+"\nTime: "+(x.time||"Time unavailable")+"\nStatus: Prototype simulation only. No external services were run.";let toggle=()=>detail.style.display=detail.style.display==="none"?"block":"none";d.onclick=toggle;d.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle()}};d.append(a,b,detail);box.appendChild(d)})}
-function addHistory(message){let list=[];try{list=JSON.parse(localStorage.getItem("sf_history")||"[]");if(!Array.isArray(list))list=[]}catch(e){list=[]}list.unshift({message,time:new Date().toLocaleString()});try{localStorage.setItem("sf_history",JSON.stringify(list.slice(0,50)))}catch(e){}renderHistory()}
-function generatePlan(){let val=$("workflowPrompt").value.trim();if(!val){alert("Please describe your workflow first.");return}let w=val.toLowerCase(),plan=["Receive topic or trigger","Prepare a draft","Review the result"];if(w.includes("youtube")||w.includes("video"))plan=["Choose video topic","Draft research and script","Break script into scenes","Prepare visual prompts and voiceover","Assemble a video draft","Human approval before publishing"];if(w.includes("email"))plan=["Receive email trigger","Analyse message","Prepare a reply draft","Human review"];steps=[...plan];renderSteps();$("planOutput").innerHTML="";let h=document.createElement("h3");h.textContent="Suggested workflow plan";let p=document.createElement("p");p.className="muted";p.style.fontSize="12px";p.textContent="This plan uses built-in rules, not a live AI model. Review every step.";let ol=document.createElement("ol");plan.forEach(s=>{let li=document.createElement("li");li.style.margin="10px 0";li.textContent=s;ol.appendChild(li)});$("planOutput").append(h,p,ol);addHistory("Generated workflow plan: "+($("workflowName").value||"Untitled workflow"))}
-$("generatePlan").onclick=generatePlan;$("generateQuick").onclick=()=>{$("workflowPrompt").value=$("quickPrompt").value;showPage("builder");generatePlan()};$("addBlock").onclick=()=>{let n=prompt("Name this step:","New step");if(n&&n.trim()){steps.push(n.trim());renderSteps()}};$("clearBlocks").onclick=()=>{steps=[...defaultSteps];renderSteps();$("runMessage").textContent="Steps reset."};
-$("saveWorkflow").onclick=()=>{let name=$("workflowName").value.trim()||"Untitled workflow",w={name,prompt:$("workflowPrompt").value,steps:[...steps],updated:new Date().toISOString()},i=workflows.findIndex(x=>x.name===name);if(i>=0)workflows[i]=w;else workflows.unshift(w);persist();renderWorkflows();$("runMessage").textContent="Workflow saved on this device.";addHistory("Saved workflow: "+name)};
-$("runWorkflow").onclick=()=>{runs++;try{sessionStorage.setItem("sf_runs",String(runs))}catch(e){}$("runCount").textContent=runs;$("runMessage").textContent="Prototype test complete: "+steps.length+" steps displayed. No external services were run.";addHistory("Prototype test: "+($("workflowName").value||"Untitled workflow"))};$("refreshHistory").onclick=renderHistory;
-$("exportData").onclick=()=>{let history=[];try{history=JSON.parse(localStorage.getItem("sf_history")||"[]")}catch(e){}let blob=new Blob([JSON.stringify({workflows,history},null,2)],{type:"application/json"}),a=document.createElement("a"),url=URL.createObjectURL(blob);a.href=url;a.download="sparkflow-data.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-$("clearData").onclick=()=>{if(confirm("Permanently delete saved workflows and history from this browser? Export first if needed.")){workflows=[];persist();try{localStorage.removeItem("sf_history")}catch(e){}renderWorkflows();renderHistory()}};
-renderSteps();renderWorkflows();renderHistory();$("runCount").textContent=runs;
-</script></body></html>
+const $=id=>document.getElementById(id);
+const DEFAULT="https://noisy-flower-7a0b.binunajad.workers.dev";
+let plan="";
+
+function url(){
+return (localStorage.getItem("sf_url")||DEFAULT).replace(/\/+$/,"");
+}
+$("backend").value=url();
+
+function page(p){
+["dashboard","builder","history","settings"].forEach(x=>
+$(x+"Page").classList.toggle("hidden",x!==p)
+);
+document.querySelectorAll("[data-page]").forEach(b=>
+b.classList.toggle("active",b.dataset.page===p)
+);
+$("pageTitle").textContent=p[0].toUpperCase()+p.slice(1);
+if(p==="history")renderHistory();
+}
+
+document.querySelectorAll("[data-page]").forEach(b=>
+b.onclick=()=>page(b.dataset.page)
+);
+$("start").onclick=()=>page("builder");
+
+document.querySelectorAll("[data-quick]").forEach(b=>
+b.onclick=()=>{
+$("prompt").value=b.dataset.quick;
+page("builder");
+}
+);
+
+function msg(t,k=""){
+$("message").textContent=t;
+$("message").className="notice "+k;
+}
+
+async function generate(){
+let p=$("prompt").value.trim();
+if(!p){
+msg("Please describe your workflow first.","warn");
+return;
+}
+
+let b=$("generate");
+b.disabled=true;
+b.textContent="Generating…";
+msg("Asking AI to prepare your plan…");
+$("output").textContent="Generating…";
+
+try{
+let r=await fetch(url()+"/api/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({prompt:p})
+});
+let d=await r.json();
+
+if(!r.ok||!d.success)
+throw Error(d.error||"Request failed: "+r.status);
+
+plan=d.reply;
+$("output").textContent=plan;
+msg("Plan generated. Review it before saving or using it.","ok");
+$("connectionStatus").textContent="AI connected";
+
+}catch(e){
+$("output").textContent="Could not generate a plan.\n\n"+e.message+"\n\nCheck Settings → Test connection. The Worker must have the /api/chat endpoint deployed.";
+msg(e.message,"warn");
+$("connectionStatus").textContent="Connection issue";
+}finally{
+b.disabled=false;
+b.textContent="✦ Generate with AI";
+}
+}
+
+$("generate").onclick=generate;
+
+$("clear").onclick=()=>{
+$("prompt").value="";
+plan="";
+$("output").textContent="Your generated plan will appear here.";
+$("message").className="notice hidden";
+};
+
+function items(){
+try{return JSON.parse(localStorage.getItem("sf_history")||"[]")}
+catch{return[]}
+}
+
+$("save").onclick=()=>{
+if(!plan){
+msg("Generate a plan before saving.","warn");
+return;
+}
+let a=items();
+a.unshift({
+name:$("name").value.trim()||"Untitled workflow",
+prompt:$("prompt").value,
+plan,
+date:new Date().toLocaleString()
+});
+localStorage.setItem("sf_history",JSON.stringify(a.slice(0,50)));
+msg("Plan saved on this device.","ok");
+};
+
+function renderHistory(){
+let el=$("history");
+el.textContent="";
+let a=items();
+
+if(!a.length){
+el.textContent="Nothing saved yet.";
+return;
+}
+
+a.forEach(x=>{
+let d=document.createElement("div");
+d.className="item";
+
+let h=document.createElement("b");
+h.textContent=x.name;
+
+let date=document.createElement("div");
+date.className="small";
+date.textContent=x.date;
+
+let p=document.createElement("p");
+p.textContent=x.prompt;
+
+let b=document.createElement("button");
+b.className="btn";
+b.textContent="Open plan";
+b.onclick=()=>{
+$("name").value=x.name;
+$("prompt").value=x.prompt;
+plan=x.plan;
+$("output").textContent=x.plan;
+page("builder");
+};
+
+d.append(h,date,p,b);
+el.append(d);
+});
+}
+
+$("clearHistory").onclick=()=>{
+if(confirm("Clear saved plans from this browser?")){
+localStorage.removeItem("sf_history");
+renderHistory();
+}
+};
+
+$("saveUrl").onclick=()=>{
+let v=$("backend").value.trim().replace(/\/+$/,"");
+
+if(!/^https:\/\/[a-z0-9.-]+\.workers\.dev$/i.test(v)){
+$("settingsMsg").textContent="Enter a valid HTTPS workers.dev URL.";
+$("settingsMsg").className="notice warn";
+return;
+}
+
+localStorage.setItem("sf_url",v);
+$("settingsMsg").textContent="Backend URL saved.";
+$("settingsMsg").className="notice ok";
+};
+
+$("test").onclick=async()=>{
+let b=$("test");
+b.disabled=true;
+b.textContent="Testing…";
+let m=$("settingsMsg");
+m.className="notice";
+
+try{
+let r=await fetch(url()+"/");
+let d=await r.json();
+
+m.textContent="Backend reachable. AI binding: "+
+(d.aiConnected?"detected":"missing")+
+". Generate a plan to test /api/chat.";
+
+m.className="notice "+(d.aiConnected?"ok":"warn");
+$("connectionStatus").textContent=d.aiConnected?
+"Backend ready":"AI binding missing";
+
+}catch(e){
+m.textContent="Connection failed: "+e.message;
+m.className="notice warn";
+$("connectionStatus").textContent="Connection issue";
+}finally{
+b.disabled=false;
+b.textContent="Test connection";
+}
+};
+</script>
+</body>
+</html>
