@@ -5,241 +5,69 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#100d1e">
 <title>SparkFlow AI</title>
-
 <style>
-:root{
---bg:#0d0b16;
---panel:#171326;
---line:#33294c;
---text:#f7f3ff;
---muted:#aaa1bd;
---purple:#9b72ff;
---green:#62d6a5
-}
+:root{--bg:#0d0b16;--panel:#171326;--line:#33294c;--text:#f7f3ff;--muted:#aaa1bd;--purple:#9b72ff;--green:#62d6a5}
 *{box-sizing:border-box}
-body{
-margin:0;
-background:radial-gradient(circle at 80% -10%,#302052,transparent 35%),var(--bg);
-color:var(--text);
-font:15px/1.5 system-ui,sans-serif
-}
-button,input,textarea{font:inherit}
+body{margin:0;background:radial-gradient(circle at 80% -10%,#302052,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif}
+button,input,textarea,select{font:inherit}
 button{cursor:pointer}
-.app{
-display:grid;
-grid-template-columns:220px 1fr;
-min-height:100vh
-}
-.side{
-padding:22px 14px;
-border-right:1px solid var(--line);
-background:#100d1c
-}
-.brand{
-font-size:19px;
-font-weight:800;
-margin:6px 8px 28px
-}
-.logo{
-display:inline-grid;
-place-items:center;
-background:linear-gradient(135deg,#b69aff,#7046e8);
-border-radius:10px;
-width:34px;
-height:34px;
-margin-right:8px
-}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.side{padding:22px 14px;border-right:1px solid var(--line);background:#100d1c}
+.brand{font-size:19px;font-weight:800;margin:6px 8px 28px}
+.logo{display:inline-grid;place-items:center;background:linear-gradient(135deg,#b69aff,#7046e8);border-radius:10px;width:34px;height:34px;margin-right:8px}
 .nav{display:grid;gap:7px}
-.nav button{
-border:0;
-text-align:left;
-color:var(--muted);
-background:transparent;
-padding:12px;
-border-radius:11px
-}
-.nav button.active,.nav button:hover{
-background:#29203e;
-color:white
-}
-.main{
-padding:26px;
-max-width:1200px;
-width:100%;
-margin:auto
-}
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-margin-bottom:24px
-}
-.eyebrow{
-color:#bba5ff;
-text-transform:uppercase;
-font-size:11px;
-letter-spacing:1.5px;
-font-weight:800
-}
+.nav button{border:0;text-align:left;color:var(--muted);background:transparent;padding:12px;border-radius:11px}
+.nav button.active,.nav button:hover{background:#29203e;color:white}
+.main{padding:26px;max-width:1200px;width:100%;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:24px}
+.eyebrow{color:#bba5ff;text-transform:uppercase;font-size:11px;letter-spacing:1.5px;font-weight:800}
 h1{font-size:27px;margin:4px 0}
-.status{
-font-size:12px;
-border:1px solid var(--line);
-border-radius:30px;
-padding:7px 10px;
-color:var(--muted)
-}
-.dot{
-display:inline-block;
-width:7px;
-height:7px;
-border-radius:50%;
-background:var(--green);
-margin-right:6px
-}
-.hero,.card{
-border:1px solid var(--line);
-border-radius:17px;
-background:rgba(23,19,38,.96);
-padding:20px;
-margin-bottom:17px
-}
-.hero{
-background:linear-gradient(125deg,#211735,#171326);
-border-color:#443360
-}
+.status{font-size:12px;border:1px solid var(--line);border-radius:30px;padding:7px 10px;color:var(--muted)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px}
+.hero,.card{border:1px solid var(--line);border-radius:17px;background:rgba(23,19,38,.96);padding:20px;margin-bottom:17px}
+.hero{background:linear-gradient(125deg,#211735,#171326);border-color:#443360}
 .hero h2{margin:4px 0;font-size:23px}
 .muted,.small{color:var(--muted)}
-.grid{
-display:grid;
-grid-template-columns:1.25fr .75fr;
-gap:16px
-}
-.label{
-display:block;
-font-size:13px;
-margin:14px 0 6px;
-color:#d8d0e8
-}
-input,textarea{
-width:100%;
-border:1px solid #403455;
-background:#100d1c;
-color:var(--text);
-border-radius:11px;
-padding:12px
-}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+.label{display:block;font-size:13px;margin:14px 0 6px;color:#d8d0e8}
+input,textarea,select{width:100%;border:1px solid #403455;background:#100d1c;color:var(--text);border-radius:11px;padding:12px}
+select option{background:#171326}
 textarea{min-height:110px;resize:vertical}
-.row{
-display:flex;
-gap:9px;
-flex-wrap:wrap;
-margin-top:13px
-}
-.btn{
-border:1px solid var(--line);
-background:#241d36;
-color:white;
-padding:10px 14px;
-border-radius:10px;
-font-weight:700
-}
-.primary{
-background:linear-gradient(135deg,#9b72ff,#7046e8);
-border:0
-}
-.btn:disabled{opacity:.6}
-.notice{
-padding:11px;
-border-radius:10px;
-background:#251e37;
-color:#d4c8f4;
-font-size:12px;
-margin-top:12px
-}
+.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.btn{border:1px solid var(--line);background:#241d36;color:white;padding:10px 14px;border-radius:10px;font-weight:700}
+.primary{background:linear-gradient(135deg,#9b72ff,#7046e8);border:0}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.notice{padding:11px;border-radius:10px;background:#251e37;color:#d4c8f4;font-size:12px;margin-top:12px}
 .warn{background:#39252a;color:#ffd5d5}
 .ok{background:#17362e;color:#c8ffea}
-.output{
-white-space:pre-wrap;
-overflow-wrap:anywhere
-}
+.output{white-space:pre-wrap;overflow-wrap:anywhere}
 .hidden{display:none!important}
-.item{
-padding:12px 0;
-border-bottom:1px solid var(--line)
-}
+.item{padding:12px 0;border-bottom:1px solid var(--line)}
 .small{font-size:12px}
-.approval{
-border:1px solid #6b5531;
-background:#302719;
-border-radius:11px;
-padding:12px;
-font-size:13px
-}
-.foot{
-text-align:center;
-color:#777086;
-font-size:11px;
-padding:10px
-}
-.step{
-border:1px solid var(--line);
-background:#100d1c;
-border-radius:12px;
-padding:13px;
-margin:12px 0
-}
-.step-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px;
-margin-bottom:8px
-}
-.step-number{
-font-size:12px;
-color:#bba5ff;
-font-weight:800
-}
-.step-actions{
-display:flex;
-gap:5px;
-flex-wrap:wrap
-}
-.step-actions button{
-padding:6px 9px;
-font-size:12px
-}
+.approval{border:1px solid #6b5531;background:#302719;border-radius:11px;padding:12px;font-size:13px}
+.foot{text-align:center;color:#777086;font-size:11px;padding:10px}
+.step{border:1px solid var(--line);background:#100d1c;border-radius:12px;padding:13px;margin:12px 0}
+.step-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.step-number{font-size:12px;color:#bba5ff;font-weight:800}
+.step-actions{display:flex;gap:5px;flex-wrap:wrap}
+.step-actions button{padding:6px 9px;font-size:12px}
 .step textarea{min-height:65px}
 .step-title{margin-bottom:8px}
+.script-box{min-height:300px;font-family:inherit;line-height:1.7}
 @media(max-width:720px){
 .app{grid-template-columns:1fr}
-.side{
-border:0;
-border-bottom:1px solid var(--line);
-padding:10px
-}
+.side{border:0;border-bottom:1px solid var(--line);padding:10px}
 .brand{margin:2px 4px 10px}
-.nav{
-grid-template-columns:repeat(4,1fr);
-gap:3px
-}
-.nav button{
-text-align:center;
-padding:9px 2px;
-font-size:12px
-}
+.nav{grid-template-columns:repeat(4,1fr);gap:3px}
+.nav button{text-align:center;padding:9px 2px;font-size:12px}
 .main{padding:15px}
 .grid{grid-template-columns:1fr}
 h1{font-size:23px}
 }
 </style>
 </head>
-
 <body>
 <div class="app">
-
 <aside class="side">
 <div class="brand"><span class="logo">✦</span>SparkFlow AI</div>
 <nav class="nav">
@@ -251,27 +79,21 @@ h1{font-size:23px}
 </aside>
 
 <main class="main">
-
 <header class="top">
 <div>
 <div class="eyebrow">Personal automation workspace</div>
 <h1 id="pageTitle">Dashboard</h1>
 </div>
-<div class="status">
-<span class="dot"></span>
-<span id="connectionStatus">Not tested</span>
-</div>
+<div class="status"><span class="dot"></span><span id="connectionStatus">Not tested</span></div>
 </header>
 
 <section id="dashboardPage">
-
 <div class="hero">
 <div class="eyebrow">Build something useful</div>
 <h2>Turn your ideas into workflows.</h2>
 <p class="muted">Describe the task in simple English. SparkFlow AI prepares a plan for you to review.</p>
 <button class="btn primary" id="start">＋ Create workflow</button>
 </div>
-
 <div class="grid">
 <div class="card">
 <h3>Quick start</h3>
@@ -280,11 +102,11 @@ h1{font-size:23px}
 <br><br>
 <button class="btn" data-quick="Create a workflow that drafts a response and waits for my approval before sending.">Draft with approval</button>
 </div>
-
 <div class="card">
 <h3>Current capabilities</h3>
 <ul>
 <li>AI workflow planning</li>
+<li>AI script generation</li>
 <li>Save plans on this device</li>
 <li>Edit and update saved plans</li>
 <li>Workflow steps editor</li>
@@ -293,41 +115,29 @@ h1{font-size:23px}
 </ul>
 </div>
 </div>
-
 </section>
 
 <section id="builderPage" class="hidden">
-
 <div class="grid">
-
 <div class="card">
 <h3>Workflow builder</h3>
 <p class="muted">Describe your goal and any limits.</p>
-
 <label class="label" for="name">Workflow name</label>
 <input id="name" placeholder="Daily psychology video">
-
 <label class="label" for="prompt">Describe your workflow</label>
 <textarea id="prompt" placeholder="Plan a 10-minute English psychology video, write a researched script, split it into scenes, suggest visuals and AI voiceover, then stop for my approval."></textarea>
-
 <div class="row">
 <button class="btn primary" id="generate">✦ Generate with AI</button>
 <button class="btn" id="save">Save workflow</button>
 <button class="btn" id="clear">Clear</button>
 </div>
-
 <div id="message" class="notice hidden"></div>
 </div>
-
 <div class="card">
 <h3>Safety rule</h3>
-<div class="approval">
-✓ <b>Human approval required before publishing.</b><br>
-This version plans workflows; it does not render or upload videos.
-</div>
+<div class="approval">✓ <b>Human approval required before publishing.</b><br>This version plans workflows; it does not render or upload videos.</div>
 <p class="small">Review facts, copyright, visuals, and voice permissions before use.</p>
 </div>
-
 </div>
 
 <div class="card">
@@ -338,17 +148,53 @@ This version plans workflows; it does not render or upload videos.
 <div class="card">
 <h3>Workflow Steps Editor</h3>
 <p class="muted">Add, edit, delete, or rearrange your workflow steps.</p>
-
 <div id="stepsList"></div>
-
 <div class="row">
 <button class="btn primary" id="addStep">＋ Add new step</button>
 <button class="btn" id="resetSteps">Reset steps</button>
 </div>
-
 <div id="stepMessage" class="notice hidden"></div>
 </div>
 
+<!-- SCRIPT GENERATOR -->
+<div class="card">
+<div class="eyebrow">New feature</div>
+<h2>✦ AI Script Generator</h2>
+<p class="muted">Generate an English narration script for your YouTube video.</p>
+
+<label class="label" for="scriptTopic">Video topic</label>
+<textarea id="scriptTopic" placeholder="Example: What Did Ancient Humans Do at Night?"></textarea>
+
+<label class="label" for="scriptDuration">Video duration</label>
+<select id="scriptDuration">
+<option value="8">8 minutes</option>
+<option value="10" selected>10 minutes</option>
+<option value="12">12 minutes</option>
+</select>
+
+<label class="label" for="scriptStyle">Video style</label>
+<select id="scriptStyle">
+<option value="documentary">Documentary storytelling</option>
+<option value="psychology">Psychology explainer</option>
+<option value="educational">Educational and informative</option>
+<option value="mystery">Mystery and curiosity</option>
+</select>
+
+<div class="row">
+<button class="btn primary" id="makeScript">✦ Generate script</button>
+<button class="btn" id="clearScript">Clear</button>
+</div>
+<div id="scriptMessage" class="notice hidden"></div>
+
+<label class="label" for="scriptOutput">Generated narration script</label>
+<textarea id="scriptOutput" class="script-box" placeholder="Your AI-generated script will appear here..."></textarea>
+
+<div class="row">
+<button class="btn" id="copyScript">Copy script</button>
+<button class="btn" id="saveScript">Save script</button>
+</div>
+<div id="scriptSaveMessage" class="notice hidden"></div>
+</div>
 </section>
 
 <section id="historyPage" class="hidden">
@@ -358,38 +204,40 @@ This version plans workflows; it does not render or upload videos.
 <div id="history" class="muted">Nothing saved yet.</div>
 <button class="btn" id="clearHistory">Clear history</button>
 </div>
+<div class="card">
+<h3>Saved scripts</h3>
+<div id="savedScripts" class="muted">No scripts saved yet.</div>
+</div>
 </section>
 
 <section id="settingsPage" class="hidden">
 <div class="card">
 <h3>Backend settings</h3>
 <p class="muted">Do not put API keys in this website.</p>
-
 <label class="label" for="backend">Cloudflare Worker URL</label>
 <input id="backend" value="https://noisy-flower-7a0b.binunajad.workers.dev">
-
 <div class="row">
 <button class="btn primary" id="saveUrl">Save URL</button>
 <button class="btn" id="test">Test connection</button>
 </div>
-
 <div id="settingsMsg" class="notice hidden"></div>
+</div>
+<div class="card">
+<h3>Research mode</h3>
+<p class="muted">This version uses the AI model's existing knowledge. Live internet research is not connected.</p>
+<div class="notice warn">Always verify important facts and sources before publishing.</div>
 </div>
 </section>
 
 <div class="foot">SparkFlow AI · AI-assisted planning · You remain in control</div>
-
 </main>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
-
 const DEFAULT="https://noisy-flower-7a0b.binunajad.workers.dev";
-
 let plan="";
 let activeEditIndex=null;
-
 let steps=[];
 
 const defaultSteps=[
@@ -401,410 +249,242 @@ const defaultSteps=[
 {title:"Human approval",description:"Review the final video and approve it before publishing."}
 ];
 
-function url(){
-return (localStorage.getItem("sf_url")||DEFAULT).replace(/\/+$/,"");
-}
-
+function url(){return (localStorage.getItem("sf_url")||DEFAULT).replace(/\/+$/,"");}
 $("backend").value=url();
 
 function page(p){
-["dashboard","builder","history","settings"].forEach(x=>{
-$(x+"Page").classList.toggle("hidden",x!==p);
-});
-
-document.querySelectorAll("[data-page]").forEach(b=>{
-b.classList.toggle("active",b.dataset.page===p);
-});
-
+["dashboard","builder","history","settings"].forEach(x=>$(x+"Page").classList.toggle("hidden",x!==p));
+document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===p));
 $("pageTitle").textContent=p[0].toUpperCase()+p.slice(1);
-
-if(p==="history")renderHistory();
+if(p==="history"){renderHistory();renderSavedScripts();}
 }
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>page(b.dataset.page));
 
-document.querySelectorAll("[data-page]").forEach(b=>{
-b.onclick=()=>page(b.dataset.page);
+$("start").onclick=()=>{resetEditor();page("builder");};
+document.querySelectorAll("[data-quick]").forEach(b=>b.onclick=()=>{
+resetEditor();$("prompt").value=b.dataset.quick;page("builder");
 });
 
-$("start").onclick=()=>{
-resetEditor();
-page("builder");
-};
-
-document.querySelectorAll("[data-quick]").forEach(b=>{
-b.onclick=()=>{
-resetEditor();
-$("prompt").value=b.dataset.quick;
-page("builder");
-};
-});
-
-function msg(t,k=""){
-$("message").textContent=t;
-$("message").className="notice "+k;
-}
-
-function stepMsg(t,k=""){
-$("stepMessage").textContent=t;
-$("stepMessage").className="notice "+k;
-}
+function msg(t,k=""){$("message").textContent=t;$("message").className="notice "+k;}
+function stepMsg(t,k=""){$("stepMessage").textContent=t;$("stepMessage").className="notice "+k;}
+function scriptMsg(t,k=""){$("scriptMessage").textContent=t;$("scriptMessage").className="notice "+k;}
 
 function renderSteps(){
-let box=$("stepsList");
-box.textContent="";
-
-if(!steps.length){
-box.textContent="No steps yet. Tap Add new step to begin.";
-return;
-}
-
+let box=$("stepsList");box.textContent="";
+if(!steps.length){box.textContent="No steps yet. Tap Add new step to begin.";return;}
 steps.forEach((s,index)=>{
-
-let div=document.createElement("div");
-div.className="step";
-
-let top=document.createElement("div");
-top.className="step-top";
-
-let number=document.createElement("span");
-number.className="step-number";
-number.textContent="STEP "+(index+1);
-
-let actions=document.createElement("div");
-actions.className="step-actions";
-
-let up=document.createElement("button");
-up.className="btn";
-up.textContent="↑";
-up.title="Move up";
-up.disabled=index===0;
-up.onclick=()=>{
-[steps[index-1],steps[index]]=[steps[index],steps[index-1]];
-renderSteps();
-};
-
-let down=document.createElement("button");
-down.className="btn";
-down.textContent="↓";
-down.title="Move down";
-down.disabled=index===steps.length-1;
-down.onclick=()=>{
-[steps[index+1],steps[index]]=[steps[index],steps[index+1]];
-renderSteps();
-};
-
-let del=document.createElement("button");
-del.className="btn";
-del.textContent="Delete";
-del.onclick=()=>{
-if(confirm("Delete this step?")){
-steps.splice(index,1);
-renderSteps();
-stepMsg("Step deleted.","ok");
-}
-};
-
-actions.append(up,down,del);
-top.append(number,actions);
-
-let title=document.createElement("input");
-title.className="step-title";
-title.value=s.title;
-title.placeholder="Step title";
-title.addEventListener("input",()=>{
-steps[index].title=title.value;
-});
-
-let desc=document.createElement("textarea");
-desc.value=s.description;
-desc.placeholder="Describe this step";
-desc.addEventListener("input",()=>{
-steps[index].description=desc.value;
-});
-
-div.append(top,title,desc);
-box.append(div);
-
+let div=document.createElement("div");div.className="step";
+let top=document.createElement("div");top.className="step-top";
+let number=document.createElement("span");number.className="step-number";number.textContent="STEP "+(index+1);
+let actions=document.createElement("div");actions.className="step-actions";
+let up=document.createElement("button");up.className="btn";up.textContent="↑";up.disabled=index===0;
+up.onclick=()=>{[steps[index-1],steps[index]]=[steps[index],steps[index-1]];renderSteps();};
+let down=document.createElement("button");down.className="btn";down.textContent="↓";down.disabled=index===steps.length-1;
+down.onclick=()=>{[steps[index+1],steps[index]]=[steps[index],steps[index+1]];renderSteps();};
+let del=document.createElement("button");del.className="btn";del.textContent="Delete";
+del.onclick=()=>{if(confirm("Delete this step?")){steps.splice(index,1);renderSteps();stepMsg("Step deleted.","ok");}};
+actions.append(up,down,del);top.append(number,actions);
+let title=document.createElement("input");title.className="step-title";title.value=s.title;title.placeholder="Step title";
+title.addEventListener("input",()=>steps[index].title=title.value);
+let desc=document.createElement("textarea");desc.value=s.description;desc.placeholder="Describe this step";
+desc.addEventListener("input",()=>steps[index].description=desc.value);
+div.append(top,title,desc);box.append(div);
 });
 }
-
-$("addStep").onclick=()=>{
-steps.push({
-title:"New workflow step",
-description:"Describe what should happen in this step."
-});
-renderSteps();
-stepMsg("New step added. Edit its title and description.","ok");
-};
-
-$("resetSteps").onclick=()=>{
-if(confirm("Reset all steps to the default workflow?")){
-steps=defaultSteps.map(s=>({...s}));
-renderSteps();
-stepMsg("Default steps restored.","ok");
-}
-};
+$("addStep").onclick=()=>{steps.push({title:"New workflow step",description:"Describe what should happen in this step."});renderSteps();stepMsg("New step added.","ok");};
+$("resetSteps").onclick=()=>{if(confirm("Reset all steps to the default workflow?")){steps=defaultSteps.map(s=>({...s}));renderSteps();stepMsg("Default steps restored.","ok");}};
 
 function resetEditor(){
-activeEditIndex=null;
-plan="";
-steps=defaultSteps.map(s=>({...s}));
-
-$("name").value="";
-$("prompt").value="";
+activeEditIndex=null;plan="";steps=defaultSteps.map(s=>({...s}));
+$("name").value="";$("prompt").value="";
 $("output").textContent="Your generated plan will appear here.";
 $("save").textContent="Save workflow";
 $("message").className="notice hidden";
 $("stepMessage").className="notice hidden";
-
 renderSteps();
 }
 
-async function generate(){
-
-let p=$("prompt").value.trim();
-
-if(!p){
-msg("Please describe your workflow first.","warn");
-return;
-}
-
-let b=$("generate");
-b.disabled=true;
-b.textContent="Generating…";
-
-msg("Asking AI to prepare your plan…");
-$("output").textContent="Generating…";
-
-try{
-
+async function callAI(prompt){
 let r=await fetch(url()+"/api/chat",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({prompt:p})
+body:JSON.stringify({prompt})
 });
-
 let d=await r.json();
-
-if(!r.ok||!d.success){
-throw Error(d.error||"Request failed: "+r.status);
+if(!r.ok||!d.success)throw Error(d.error||"Request failed: "+r.status);
+return d.reply;
 }
 
-plan=d.reply;
-$("output").textContent=plan;
-
-if(!steps.length){
-steps=defaultSteps.map(s=>({...s}));
-}
-
-renderSteps();
-
-msg("Plan generated. Review and edit your workflow steps.","ok");
+async function generate(){
+let p=$("prompt").value.trim();
+if(!p){msg("Please describe your workflow first.","warn");return;}
+let b=$("generate");b.disabled=true;b.textContent="Generating…";
+msg("Asking AI to prepare your plan…");$("output").textContent="Generating…";
+try{
+plan=await callAI(p);$("output").textContent=plan;
+if(!steps.length)steps=defaultSteps.map(s=>({...s}));
+renderSteps();msg("Plan generated. Review and edit your workflow steps.","ok");
 $("connectionStatus").textContent="AI connected";
-
 }catch(e){
-
-$("output").textContent=
-"Could not generate a plan.\n\n"+
-e.message+
-"\n\nCheck Settings → Test connection.";
-
-msg(e.message,"warn");
-$("connectionStatus").textContent="Connection issue";
-
-}finally{
-
-b.disabled=false;
-b.textContent="✦ Generate with AI";
-
+$("output").textContent="Could not generate a plan.\n\n"+e.message+"\n\nCheck Settings → Test connection.";
+msg(e.message,"warn");$("connectionStatus").textContent="Connection issue";
+}finally{b.disabled=false;b.textContent="✦ Generate with AI";}
 }
-}
-
 $("generate").onclick=generate;
 
-function items(){
-try{
-return JSON.parse(localStorage.getItem("sf_history")||"[]");
-}catch{
-return [];
-}
-}
-
+function items(){try{return JSON.parse(localStorage.getItem("sf_history")||"[]");}catch{return [];}}
 $("save").onclick=()=>{
-
-if(!plan){
-msg("Generate a plan before saving.","warn");
-return;
-}
-
+if(!plan){msg("Generate a plan before saving.","warn");return;}
 let a=items();
-
-let record={
-name:$("name").value.trim()||"Untitled workflow",
-prompt:$("prompt").value,
-plan,
-steps:steps.map(s=>({...s})),
-date:new Date().toLocaleString()
-};
-
+let record={name:$("name").value.trim()||"Untitled workflow",prompt:$("prompt").value,plan,steps:steps.map(s=>({...s})),date:new Date().toLocaleString()};
 if(activeEditIndex!==null&&a[activeEditIndex]){
-
-a[activeEditIndex]=record;
-localStorage.setItem("sf_history",JSON.stringify(a));
-
-msg("Workflow updated successfully.","ok");
-
-activeEditIndex=null;
-$("save").textContent="Save workflow";
-
+a[activeEditIndex]=record;localStorage.setItem("sf_history",JSON.stringify(a));
+msg("Workflow updated successfully.","ok");activeEditIndex=null;$("save").textContent="Save workflow";
 }else{
-
-a.unshift(record);
-localStorage.setItem("sf_history",JSON.stringify(a.slice(0,50)));
-
+a.unshift(record);localStorage.setItem("sf_history",JSON.stringify(a.slice(0,50)));
 msg("New workflow saved on this device.","ok");
-
 }
-
 };
 
 function renderHistory(){
-
-let el=$("history");
-el.textContent="";
-
-let a=items();
-
-if(!a.length){
-el.textContent="Nothing saved yet.";
-return;
-}
-
+let el=$("history");el.textContent="";let a=items();
+if(!a.length){el.textContent="Nothing saved yet.";return;}
 a.forEach((x,index)=>{
-
-let d=document.createElement("div");
-d.className="item";
-
-let h=document.createElement("b");
-h.textContent=x.name;
-
-let date=document.createElement("div");
-date.className="small";
-date.textContent=x.date||"";
-
-let p=document.createElement("p");
-p.textContent=x.prompt||"";
-
-let b=document.createElement("button");
-b.className="btn";
-b.textContent="Open / Edit plan";
-
+let d=document.createElement("div");d.className="item";
+let h=document.createElement("b");h.textContent=x.name;
+let date=document.createElement("div");date.className="small";date.textContent=x.date||"";
+let p=document.createElement("p");p.textContent=x.prompt||"";
+let b=document.createElement("button");b.className="btn";b.textContent="Open / Edit plan";
 b.onclick=()=>{
-
-activeEditIndex=index;
-
-$("name").value=x.name||"";
-$("prompt").value=x.prompt||"";
-plan=x.plan||"";
-
-$("output").textContent=plan;
-
-steps=Array.isArray(x.steps)&&x.steps.length
-?x.steps.map(s=>({...s}))
-:defaultSteps.map(s=>({...s}));
-
-renderSteps();
-
-$("save").textContent="Update workflow";
-
-msg("Editing saved workflow. Make changes and tap Update workflow.","ok");
-
-page("builder");
-
+activeEditIndex=index;$("name").value=x.name||"";$("prompt").value=x.prompt||"";
+plan=x.plan||"";$("output").textContent=plan;
+steps=Array.isArray(x.steps)&&x.steps.length?x.steps.map(s=>({...s})):defaultSteps.map(s=>({...s}));
+renderSteps();$("save").textContent="Update workflow";
+msg("Editing saved workflow. Make changes and tap Update workflow.","ok");page("builder");
 };
-
-d.append(h,date,p,b);
-el.append(d);
-
+d.append(h,date,p,b);el.append(d);
 });
-
 }
+$("clear").onclick=()=>resetEditor();
+$("clearHistory").onclick=()=>{if(confirm("Clear saved plans from this browser?")){localStorage.removeItem("sf_history");resetEditor();renderHistory();}};
 
-$("clear").onclick=()=>{
-resetEditor();
+/* SCRIPT GENERATOR */
+async function makeScript(){
+let topic=$("scriptTopic").value.trim();
+if(!topic){scriptMsg("Please enter a video topic first.","warn");return;}
+let duration=$("scriptDuration").value;
+let style=$("scriptStyle").value;
+let b=$("makeScript");b.disabled=true;b.textContent="Generating script…";
+$("scriptOutput").value="";
+scriptMsg("AI is preparing your narration script. Please wait…");
+let words=duration==="8"?"approximately 1000–1100":duration==="10"?"approximately 1250–1400":"approximately 1500–1650";
+let prompt=`Create a complete YouTube narration script in simple, natural English.
+
+TOPIC: ${topic}
+TARGET VIDEO LENGTH: ${duration} minutes.
+TARGET SCRIPT LENGTH: ${words} words.
+STYLE: ${style}.
+
+Requirements:
+1. Write a complete narration script, not just an outline.
+2. Start with a strong curiosity-building hook.
+3. Include a clear introduction, well-organized main sections, useful examples, and a memorable conclusion.
+4. Use natural spoken English suitable for an AI voiceover.
+5. Keep paragraphs short and easy to narrate.
+6. Avoid unnecessary repetition and fake facts.
+7. Do not invent statistics, studies, quotations, historical events, or sources.
+8. If a fact is uncertain or disputed, clearly say so.
+9. Do not claim that live internet research or fact-checking was performed.
+10. Give the script a suitable title.
+11. Do not include visual prompts or editing instructions in the narration.
+12. End with a natural YouTube call to action.
+
+Return the complete script with clear section headings.`;
+try{
+let result=await callAI(prompt);
+$("scriptOutput").value=result;
+scriptMsg("Script generated. Please review and verify important facts.","ok");
+$("connectionStatus").textContent="AI connected";
+}catch(e){
+scriptMsg("Could not generate script: "+e.message,"warn");
+$("connectionStatus").textContent="Connection issue";
+}finally{b.disabled=false;b.textContent="✦ Generate script";}
+}
+$("makeScript").onclick=makeScript;
+
+$("clearScript").onclick=()=>{
+$("scriptTopic").value="";$("scriptOutput").value="";
+$("scriptMessage").className="notice hidden";
+$("scriptSaveMessage").className="notice hidden";
 };
 
-$("clearHistory").onclick=()=>{
-
-if(confirm("Clear saved plans from this browser?")){
-
-localStorage.removeItem("sf_history");
-resetEditor();
-renderHistory();
-
+$("copyScript").onclick=async()=>{
+let text=$("scriptOutput").value.trim();
+if(!text){$("scriptSaveMessage").textContent="Generate a script first."; $("scriptSaveMessage").className="notice warn";return;}
+try{
+await navigator.clipboard.writeText(text);
+$("scriptSaveMessage").textContent="Script copied to clipboard.";
+$("scriptSaveMessage").className="notice ok";
+}catch{
+$("scriptOutput").select();
+$("scriptSaveMessage").textContent="Select the script and copy it manually.";
+$("scriptSaveMessage").className="notice warn";
 }
-
 };
+
+function savedScripts(){
+try{return JSON.parse(localStorage.getItem("sf_scripts")||"[]");}catch{return [];}
+}
+$("saveScript").onclick=()=>{
+let text=$("scriptOutput").value.trim();
+if(!text){$("scriptSaveMessage").textContent="Generate a script first."; $("scriptSaveMessage").className="notice warn";return;}
+let a=savedScripts();
+a.unshift({topic:$("scriptTopic").value.trim()||"Untitled script",text,date:new Date().toLocaleString()});
+localStorage.setItem("sf_scripts",JSON.stringify(a.slice(0,30)));
+$("scriptSaveMessage").textContent="Script saved on this device.";
+$("scriptSaveMessage").className="notice ok";
+};
+function renderSavedScripts(){
+let box=$("savedScripts");box.textContent="";let a=savedScripts();
+if(!a.length){box.textContent="No scripts saved yet.";return;}
+a.forEach((s,index)=>{
+let d=document.createElement("div");d.className="item";
+let title=document.createElement("b");title.textContent=s.topic;
+let date=document.createElement("div");date.className="small";date.textContent=s.date||"";
+let open=document.createElement("button");open.className="btn";open.textContent="Open script";
+open.onclick=()=>{page("builder");$("scriptTopic").value=s.topic;$("scriptOutput").value=s.text;};
+let del=document.createElement("button");del.className="btn";del.textContent="Delete";
+del.onclick=()=>{if(confirm("Delete this saved script?")){let current=savedScripts();current.splice(index,1);localStorage.setItem("sf_scripts",JSON.stringify(current));renderSavedScripts();}};
+d.append(title,date,open,del);box.append(d);
+});
+}
 
 $("saveUrl").onclick=()=>{
-
 let v=$("backend").value.trim().replace(/\/+$/,"");
-
 if(!/^https:\/\/[a-z0-9.-]+\.workers\.dev$/i.test(v)){
-
 $("settingsMsg").textContent="Enter a valid HTTPS workers.dev URL.";
-$("settingsMsg").className="notice warn";
-return;
-
+$("settingsMsg").className="notice warn";return;
 }
-
 localStorage.setItem("sf_url",v);
-
 $("settingsMsg").textContent="Backend URL saved.";
 $("settingsMsg").className="notice ok";
-
 };
 
 $("test").onclick=async()=>{
-
-let b=$("test");
-b.disabled=true;
-b.textContent="Testing…";
-
-let m=$("settingsMsg");
-m.className="notice";
-
+let b=$("test");b.disabled=true;b.textContent="Testing…";
+let m=$("settingsMsg");m.className="notice";
 try{
-
-let r=await fetch(url()+"/");
-let d=await r.json();
-
-m.textContent=
-"Backend reachable. AI binding: "+
-(d.aiConnected?"detected":"missing")+
-". Generate a plan to test /api/chat.";
-
+let r=await fetch(url()+"/");let d=await r.json();
+m.textContent="Backend reachable. AI binding: "+(d.aiConnected?"detected":"missing")+". Generate a plan to test AI.";
 m.className="notice "+(d.aiConnected?"ok":"warn");
-
-$("connectionStatus").textContent=
-d.aiConnected?"Backend ready":"AI binding missing";
-
+$("connectionStatus").textContent=d.aiConnected?"Backend ready":"AI binding missing";
 }catch(e){
-
-m.textContent="Connection failed: "+e.message;
-m.className="notice warn";
+m.textContent="Connection failed: "+e.message;m.className="notice warn";
 $("connectionStatus").textContent="Connection issue";
-
-}finally{
-
-b.disabled=false;
-b.textContent="Test connection";
-
-}
-
+}finally{b.disabled=false;b.textContent="Test connection";}
 };
 
 resetEditor();
-
 </script>
 </body>
-</html>
+  </html>
