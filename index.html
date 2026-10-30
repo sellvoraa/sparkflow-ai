@@ -98,6 +98,7 @@ h1{font-size:23px}
 <ul>
 <li>AI workflow planning</li>
 <li>Save plans on this device</li>
+<li>Edit and update saved plans</li>
 <li>Human approval stays required</li>
 <li>Video rendering and upload are not connected</li>
 </ul>
@@ -166,6 +167,7 @@ h1{font-size:23px}
 const $=id=>document.getElementById(id);
 const DEFAULT="https://noisy-flower-7a0b.binunajad.workers.dev";
 let plan="";
+let activeEditIndex=null;
 
 function url(){
 return (localStorage.getItem("sf_url")||DEFAULT).replace(/\/+$/,"");
@@ -186,10 +188,14 @@ if(p==="history")renderHistory();
 document.querySelectorAll("[data-page]").forEach(b=>
 b.onclick=()=>page(b.dataset.page)
 );
-$("start").onclick=()=>page("builder");
+$("start").onclick=()=>{
+resetEditor();
+page("builder");
+};
 
 document.querySelectorAll("[data-quick]").forEach(b=>
 b.onclick=()=>{
+resetEditor();
 $("prompt").value=b.dataset.quick;
 page("builder");
 }
@@ -241,12 +247,17 @@ b.textContent="✦ Generate with AI";
 
 $("generate").onclick=generate;
 
-$("clear").onclick=()=>{
-$("prompt").value="";
+function resetEditor(){
+activeEditIndex=null;
 plan="";
+$("name").value="";
+$("prompt").value="";
 $("output").textContent="Your generated plan will appear here.";
+$("save").textContent="Save workflow";
 $("message").className="notice hidden";
-};
+}
+
+$("clear").onclick=resetEditor;
 
 function items(){
 try{return JSON.parse(localStorage.getItem("sf_history")||"[]")}
@@ -258,15 +269,27 @@ if(!plan){
 msg("Generate a plan before saving.","warn");
 return;
 }
+
 let a=items();
-a.unshift({
+let record={
 name:$("name").value.trim()||"Untitled workflow",
 prompt:$("prompt").value,
 plan,
 date:new Date().toLocaleString()
-});
+};
+
+if(activeEditIndex!==null && a[activeEditIndex]){
+a[activeEditIndex]=record;
+localStorage.setItem("sf_history",JSON.stringify(a));
+msg("Workflow updated successfully.","ok");
+activeEditIndex=null;
+$("save").textContent="Save workflow";
+}else{
+a.unshift(record);
 localStorage.setItem("sf_history",JSON.stringify(a.slice(0,50)));
-msg("Plan saved on this device.","ok");
+msg("New workflow saved on this device.","ok");
+}
+
 };
 
 function renderHistory(){
@@ -279,7 +302,7 @@ el.textContent="Nothing saved yet.";
 return;
 }
 
-a.forEach(x=>{
+a.forEach((x,index)=>{
 let d=document.createElement("div");
 d.className="item";
 
@@ -295,12 +318,15 @@ p.textContent=x.prompt;
 
 let b=document.createElement("button");
 b.className="btn";
-b.textContent="Open plan";
+b.textContent="Open / Edit plan";
 b.onclick=()=>{
+activeEditIndex=index;
 $("name").value=x.name;
 $("prompt").value=x.prompt;
 plan=x.plan;
 $("output").textContent=x.plan;
+$("save").textContent="Update workflow";
+msg("Editing saved workflow. Make your changes and tap Update workflow.","ok");
 page("builder");
 };
 
@@ -312,6 +338,7 @@ el.append(d);
 $("clearHistory").onclick=()=>{
 if(confirm("Clear saved plans from this browser?")){
 localStorage.removeItem("sf_history");
+resetEditor();
 renderHistory();
 }
 };
